@@ -1,25 +1,14 @@
 <?php $opts =  SN_Kalkulator_Settings::$options; ?>
 
-<!-- Style start -->
-<style type="text/css">
-    
-    .sn-d-flex , .sn-row{
-        display: flex;
-        flex-wrap: wrap;
-    }
-</style>
-<!-- Styles end -->
-
-
 <!--Scripts-->
     <script type="text/javascript">
         jQuery(document).ready(function($) { 
             var zalecanaMocInstalacji;
 
             var instalationTypePrice = {
-                ekonomiczna: <?php echo $opts['sn_kalkulator_economic'] ?> ,
-                standardowa:<?php echo $opts['sn_kalkulator_standard'] ?>,
-                premium: <?php echo $opts['sn_kalkulator_premium'] ?>
+                ekonomiczna: <?php echo(is_array($opts) && isset($opts['sn_kalkulator_economic']) && !empty($opts['sn_kalkulator_economic'])) ? $opts['sn_kalkulator_economic'] : 3600  ;   ?> ,
+                standardowa:<?php echo (is_array($opts) && isset($opts['sn_kalkulator_standard']) && !empty($opts['sn_kalkulator_standard'])   ) ? $opts['sn_kalkulator_standard'] : 4100 ; ?>,
+                premium: <?php echo (is_array($opts) && isset($opts['sn_kalkulator_premium']) && !empty($opts['sn_kalkulator_premium'])) ? $opts['sn_kalkulator_premium'] : 4600; ?>
             };
 
             var offerList = {
@@ -163,19 +152,19 @@
 
 
 <!-- Kalk start -->
-<div class="col-12 col-xl-8">
+<div class="sn-kalkulator-wrapper">
     <form  id="sn_calculator_form">
 
         <!-- Sec 1 start -->
         <div class="sn-calc-sec-1" id="calc-sec-1-sn">
             <div class="sn-row">
                 <div class="sn-col-12">
-                    <h6 class="font-weight-normal text-secondary">Krok <span class="text-primary">1</span> z 4</h6>
+                    <h6 class="font-weight-normal text-secondary sn-kalk-step">Krok <span class="text-primary">1</span> z 4</h6>
                     <h4>Wybierz rodzaj obliczeń</h4>
                 </div>
             </div>
             <div class="sn-row">
-                <div class="sn-col-12 sn-col-md-6">
+                <div class=" sn-col-md-6">
                     <div class="sn-custom-control sn-custom-radio ">
                         <input type="radio" id="rodzaj-obliczen-1" name="rodzaj_obliczen" class="custom-control-input" value="1">
                         <label class="custom-control-label" for="rodzaj-obliczen-1">
@@ -183,7 +172,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="sn-col-12 sn-col-md-6">
+                <div class="sn-col-md-6">
                     <div class="sn-custom-control sn-custom-radio">
                         <input type="radio" id="rodzaj-obliczen-2" name="rodzaj_obliczen" class="custom-control-input" value="2">
                         <label class="custom-control-label" for="rodzaj-obliczen-2">
@@ -198,33 +187,31 @@
         <!-- Sec 2 start -->
 
         <div id="calc-sec-2-sn" class="sn-calc-sec-2" style="display: none;">
-            <hr class="mb-5">
-            <div class="row">
-                <div class="col-12">
-                    <h6 class="font-weight-normal text-secondary">Krok <span class="text-primary">2</span> z 4</h6>
-                    <h4>Podaj koszt miesięcznych rachunków</h4>
+            <!-- <hr class="mb-5"> -->
+            <div class="sn-row">
+                <div class="sn-col-12">
+                    <h6 class="font-weight-normal text-secondary sn-kalk-step">Krok <span class="text-primary">2</span> z 4</h6>
+                    <h4>Podaj koszt miesięcznych rachunków (zł/msc)</h4>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-lg-6">
+            <div class="sn-row">
+                <div class="sn-col-12">
                     <div class="form-group pt-2">
-                        <label for="costs">Wysokość miesięcznych rachunków</label>
+                        <!-- <label for="costs">Wysokość miesięcznych rachunków (zł/msc)</label> -->
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <input type="text" value="" name="wysokosc_rachunkow" id="wysokoscRachunkow" class="form-control">
                             </div>
-                            <div class="col-4">
-                                zł / msc
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="mt-0 pt-0 pl-lg-5 pr-lg-5">
-                        <button type="button" id="wysokoscRachunkowNext" class="btn btn-outline-primary float-right btnNextStep">
+            <div class="sn-row">
+                <div class="sn-col-12">
+                    <div class="text-right-sn">
+                        <button type="button" id="wysokoscRachunkowNext" class="btn btn-outline-primary float-right btnNextStep ml-auto-sn">
                             Przejdź dalej
                         </button>
                     </div>
@@ -237,32 +224,30 @@
         <!-- Sec 3 start -->
 
         <div id="calc-sec-3-sn" class="sn-calc-sec-3"  style="display: none;">
-            <hr class="mb-5">
-            <div class="row">
-                <div class="col-12">
-                    <h6 class="font-weight-normal text-secondary">Krok 2</h6>
-                    <h4>Roczne zapotrzebowanie energetyczne</h4>
+            <!-- <hr class="mb-5"> -->
+            <div class="sn-row">
+                <div class="sn-col-12">
+                     <h6 class="font-weight-normal text-secondary sn-kalk-step">Krok <span class="text-primary">2</span> z 4</h6>
+                    <h4>Roczne zapotrzebowanie energetyczne (kWh/rok)</h4>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-lg-6">
+            <div class="sn-row">
+                <div class="sn-col-12">
                     <div class="form-group pt-2">
-                        <label for="demand">Wielkość zapotrzebowania</label>
+                        <!-- <label for="demand">Wielkość zapotrzebowania</label> -->
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <input type="text" name="roczne_zapotrzebowanie" id="roczneZapotrzebowanie" class="form-control">
                             </div>
-                            <div class="col-4">
-                                kWh/rok
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="mt-0 pt-0 pl-lg-5 pr-lg-5">
+            <div class="sn-row">
+                <div class="sn-col-12">
+                    <div class="text-right-sn">
                         <button type="button" id="roczneZapotrzebowanieNext" class="btn btn-outline-primary float-right btnNextStep">
                             Przejdź dalej
                         </button>
@@ -277,16 +262,16 @@
         <!-- Kalkulacja start -->
 
         <div style="display: none;" id="kalkulacjaWynik" class="resultBox">
-            <div class="row pt-5 pb-5">
-                <div class="col-12">
-                    <h6 class="font-weight-normal text-secondary">Krok <span class="text-primary">3</span> z 4</h6>
+            <div class="sn-row">
+                <div class="sn-col-12">
+                    <h6 class="font-weight-normal text-secondary sn-kalk-step">Krok <span class="text-primary">3</span> z 4</h6>
                     <h4>Kalkulacja</h4>
                 </div>
             </div>
 
             <!-- Kalkulacja - wysokość miesiecznych rachunków -->
-            <div class="row">
-                <div class="col-12">
+            <div class="sn-row ptb-0">
+                <div class="sn-col-12 ptb-0">
                     <div class="table-responsive" id="table-wysokosc-rachunkow" style="display: none;">
                         <table class="table table-striped table-hover w-100">
                             <tbody>
@@ -333,8 +318,8 @@
             </div>
 
             <!-- Kalkulacja - roczne zapotrzebowanie na energie -->
-            <div class="row">
-                <div class="col-12">
+            <div class="sn-row ptb-0">
+                <div class="sn-col-12 ptb-0">
                     <div class="table-responsive" id="table-roczne-zapotrzebowanie" style="display: none;">
                         <table class="table table-striped table-hover w-100">
                             <tbody>
@@ -375,17 +360,17 @@
         <!-- Rodzaj instalacji start -->
         
         <div id="rodzajInstalacji" class="rodzaj-instalacji-wrapper" style="display:none;">
-            <hr class="mt-5">
-            <div class="row pt-5">
-                <div class="col-12">
-                    <h6 class="font-weight-normal text-secondary">Krok <span class="text-primary">4</span> z 4</h6>
+            <!-- <hr class="mt-5"> -->
+            <div class="sn-row">
+                <div class="sn-col-12">
+                    <h6 class="font-weight-normal text-secondary sn-kalk-step">Krok <span class="text-primary">4</span> z 4</h6>
                     <h4>Wybierz rodzaj instalacji</h4>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
+            <div class="sn-row">
+                <div class="sn-col-12">
                     <div class="form-group">
-                        <label for="typInstalacji">Rodzaj instalacji</label>
+                        <!-- <label for="typInstalacji">Rodzaj instalacji</label> -->
                         <select name="typ_instalacji" id="typInstalacji" class="form-control">
                             <option value="ekonomiczna" selected>Ekonomiczna</option>
                             <option value="standardowa" >Standardowa</option>
@@ -399,51 +384,54 @@
         <!-- Rodzaj isntalacji end -->
 
         <div id="rodzajInstalacjiContainer" class="rodzaj-instalacji-items-container" style="display: none;">
-            <div class="col-12">
-                <div id="installation_desc">
-                    <div class="row mt-5 mb-5 align-items-center">
-                       <!--  <div class="col-12 col-lg-4">
-                            <picture class="round calculator-offer-image"><img class="lazy background loaded" src="https://termo-industria.pl/storage/calculator/8cfbe286a167153851c79657477789a9.jpg" srcset="https://termo-industria.pl/storage/calculator/8cfbe286a167153851c79657477789a9@2x.jpg 2x,https://termo-industria.pl/storage/calculator/8cfbe286a167153851c79657477789a9.jpg  1x"></picture>
-                        </div> -->
-                        <div class="col-12 mt-5 col-lg-8 mt-lg-0 pl-lg-5">
-                            <h5 class="rodzaj-instalacji-title">Oferta ekonomiczna</h5>
-                            <p class="rodzaj-instalacji-desc">Oferta Ekonomiczna skierowana jest do klientów, dla których najważniejsza jest szybkość zwrotu instalacji.</p>
+            <div class="sn-row">
+                <div class="sn-col-12">
+                    <div id="installation_desc">
+                        <div class="">
+                           <!--  <div class="col-12 col-lg-4">
+                                <picture class="round calculator-offer-image"><img class="lazy background loaded" src="https://termo-industria.pl/storage/calculator/8cfbe286a167153851c79657477789a9.jpg" srcset="https://termo-industria.pl/storage/calculator/8cfbe286a167153851c79657477789a9@2x.jpg 2x,https://termo-industria.pl/storage/calculator/8cfbe286a167153851c79657477789a9.jpg  1x"></picture>
+                            </div> -->
+                            <div class="">
+                                <h5 class="rodzaj-instalacji-title">Oferta ekonomiczna</h5>
+                                <p class="rodzaj-instalacji-desc">Oferta Ekonomiczna skierowana jest do klientów, dla których najważniejsza jest szybkość zwrotu instalacji.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <hr>
+                   
+                    <div class="sn-row pt-3">
+                        <div class="sn-col-12">
+                            <h4 class="pr-5">Jednorazowy koszt instalacji:</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="row pt-3">
-                    <div class="col-12">
-                        <h4 class="pr-5">Jednorazowy koszt instalacji:</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="alert alert-warning rounded p-4 mt-3">
-                            <div class="row align-items-center">
-                                <div class="col-12">
-                                    <h5 class="p-0 m-0"><span id="calkowityKosztInstalacji">18387.1</span> zł</h5>
+                    <div class="sn-row">
+                        <div class="sn-col-12">
+                            <div class="bg-accent-sn">
+                                <div class="row align-items-center">
+                                    <div class="col-12">
+                                        <h5 class="p-0 m-0"><span id="calkowityKosztInstalacji">18387.1</span> zł</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row pb-5" style="display: none;">
-            <div class="col-12">
-                <div class="alert alert-secondary p-3 p-lg-5 ml-5 mr-5">
-                    <h6>Uwaga</h6>
-                    <p class="p-0">Informacje dostarczone przez kalkulator są symulacją. Skontaktuj się z nami w celu weryfikacji i potwierdzenia oferty.</p>
-                    <a href="https://termo-industria.pl/kontakt" class="btn btn-primary mt-3">Skontaktuj się</a>
+            <!-- Uwaga -->
+             <div class="sn-row ">
+                <div class="sn-col-12">
+                    <div class="bg-alert-sn">
+                        <h5>Uwaga</h5>
+                        <p class="p-0">Informacje dostarczone przez kalkulator są symulacją. Skontaktuj się z nami w celu weryfikacji i potwierdzenia oferty.</p>
+                        <a href="#" class="button-sn ">Skontaktuj się</a>
+                    </div>
                 </div>
             </div>
+            <!-- Uwaga end -->
+
         </div>
+
+       
 
         <!-- </div> -->
 

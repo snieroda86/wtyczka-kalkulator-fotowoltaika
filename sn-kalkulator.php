@@ -28,6 +28,7 @@ if( !class_exists( 'SN_Kalkulator' ) ){
         require_once(SN_KALK_PATH.'/shortcodes/class.sn-kalkulator_shortcode.php');
         $SN_Kalkulator_Shortcode = new SN_Kalkulator_Shortcode();
         add_action( 'wp_enqueue_scripts', array( $this, 'add_jquery' ) );
+        add_action('wp_enqueue_scripts' , array($this , 'register_scripts'),999 );
     }
 
     /**
@@ -70,6 +71,12 @@ if( !class_exists( 'SN_Kalkulator' ) ){
       // Display messages
       settings_errors('sn_slider_options');
       require (SN_KALK_PATH.'/views/settings-page.php');
+    }
+
+    // Regitser scripts
+    public function register_scripts(){
+
+      wp_register_style( 'sn-kalkulator-style-css', SN_KALK_URL.'assets/css/frontend.css' , array() , SN_KALK_VERSION , 'all' );
     }
 
 

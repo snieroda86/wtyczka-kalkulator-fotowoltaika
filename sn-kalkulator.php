@@ -69,7 +69,7 @@ if( !class_exists( 'SN_Kalkulator' ) ){
         add_settings_error( 'sn_kalkulator_options', 'sn_kalkulator_message' , 'Settings Saved' , 'success' );
       }
       // Display messages
-      settings_errors('sn_slider_options');
+      settings_errors('sn_kalkulator_options');
       require (SN_KALK_PATH.'/views/settings-page.php');
     }
 

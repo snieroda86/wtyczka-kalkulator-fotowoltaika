@@ -87,6 +87,32 @@ if(! class_exists('SN_Kalkulator_Settings')){
 			>
 		<?php }
 
+		// Validation
+		public function sn_kalkulator_validate($input) {
+		    $output = array();
+
+		    if (isset($input['sn_kalkulator_economic']) && ctype_digit($input['sn_kalkulator_economic'])) {
+		        $output['sn_kalkulator_economic'] = intval($input['sn_kalkulator_economic']);
+		    } else {
+		        add_settings_error('sn_kalkulator_options', 'sn_kalkulator_economic', 'Pole musi być wypełnione liczbą całkowitą.');
+		    }
+
+		    if (isset($input['sn_kalkulator_standard']) && ctype_digit($input['sn_kalkulator_standard'])) {
+		        $output['sn_kalkulator_standard'] = intval($input['sn_kalkulator_standard']);
+		    } else {
+		        add_settings_error('sn_kalkulator_options', 'sn_kalkulator_standard', 'Pole musi być wypełnione liczbą całkowitą.');
+		    }
+
+		    if (isset($input['sn_kalkulator_premium']) && ctype_digit($input['sn_kalkulator_premium'])) {
+		        $output['sn_kalkulator_premium'] = intval($input['sn_kalkulator_premium']);
+		    } else {
+		        add_settings_error('sn_kalkulator_options', 'sn_kalkulator_premium', 'Pole musi być wypełnione liczbą całkowitą.');
+		    }
+
+		    return $output;
+		}
+
+
 
 
 	}	
